@@ -91,7 +91,7 @@ module.exports.deleteMessage = async (req, res) => {
   try {
     const messageData = await Message.destroy({
       where: {
-        senderid: req.params.id,
+        senderid: req.params.senderid,
       },
     });
 
