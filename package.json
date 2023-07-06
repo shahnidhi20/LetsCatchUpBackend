@@ -6,7 +6,8 @@
   "scripts": {
     "server": "node backend/server.js",
     "client": "npm start --prefix frontend",
-    "dev": "npm run server" 
+    "dev": "npm run server",
+    "start": "node backend/server.js"
   },
   "author": "",
   "license": "ISC",
