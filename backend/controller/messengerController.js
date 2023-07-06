@@ -85,3 +85,23 @@ module.exports.getMessage = async (req, res) => {
     });
   }
 };
+
+module.exports.deleteMessage = async (req, res) => {
+  // delete a category by its `id` value
+  try {
+    const messageData = await Message.destroy({
+      where: {
+        senderid: req.params.id,
+      },
+    });
+
+    if (!messageData) {
+      res.status(404).json({ message: "No message found with this id!" });
+      return;
+    }
+
+    res.status(200).json(messageData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};

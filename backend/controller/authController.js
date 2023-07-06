@@ -110,3 +110,50 @@ module.exports.userLogout = (req, res) => {
     success: true,
   });
 };
+
+module.exports.deleteUser = async (req, res) => {
+  // delete a category by its `id` value
+  try {
+    console.log("Delete user: ", req.params.id);
+    const UserData = await User.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!UserData) {
+      res.status(404).json({ message: "No message found with this id!" });
+      return;
+    }
+
+    res.status(200).json(UserData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+module.exports.updateUser = async (req, res) => {
+  // delete a category by its `id` value
+  try {
+    const UserData = await User.update(
+      {
+        profile_pic_path: req.body.profile_pic_path,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    if (!UserData) {
+      res.status(404).json({ message: "No User found with this id!" });
+      return;
+    }
+
+    res.status(200).json(UserData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
