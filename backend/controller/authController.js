@@ -136,11 +136,13 @@ module.exports.deleteUser = async (req, res) => {
 module.exports.updateUser = async (req, res) => {
   // delete a category by its `id` value
   try {
+    console.log("Updating User", req.params.id, req.body.profile_pic_path);
     const UserData = await User.update(
       {
         profile_pic_path: req.body.profile_pic_path,
       },
       {
+        logging: console.log,
         where: {
           id: req.params.id,
         },
@@ -150,6 +152,8 @@ module.exports.updateUser = async (req, res) => {
     if (!UserData) {
       res.status(404).json({ message: "No User found with this id!" });
       return;
+    } else {
+      console.log("After Update", UserData);
     }
 
     res.status(200).json(UserData);
